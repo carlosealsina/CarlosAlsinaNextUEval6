@@ -1,35 +1,31 @@
 $(document).ready(function(){
 
-	document.querySelector('#mostrarTodos').addEventListener('click', traerDatos);
-
-	function traerDatos(){
-
+	document.querySelector('#mostrarTodos').addEventListener('click', mostrarTodos);
+	function mostrarTodos(){
 		const xhttp = new XMLHttpRequest();
 		xhttp.open('GET', './data-1.json', true);
 		xhttp.send();
 		xhttp.onreadystatechange = function(){
-
 			if(this.readyState == 4 && this.status == 200){
-
 				let datos = JSON.parse(this.responseText);
-				console.log(datos);
+				//console.log(datos);
 				let respuesta = document.querySelector('#respuesta');
 				respuesta.innerHTML = '';
-
 				for(let item of datos){
-					//console.log(item.Ciudad);
-					respuesta.innerHTML += '<div class="itemMostrado"><img width="250" height="150" src="img/home.jpg"><div class="card-stacked"><div style="margin-left:20px"><h6>Dirección: '+item.Direccion+'<br>Ciudad: '+item.Ciudad+'<br>Teléfono: '+item.Telefono+'<br>Código Postal: '+item.Codigo_Postal+'<br>Tipo: '+item.Tipo+'<br>Precio: <p class="precioTexto">'+item.Precio+'</p></h6></div></div></div>'
-					//$("#selectCiudad").append("<option>"+item.Ciudad+"</option>");
+					respuesta.innerHTML += '<div class="tituloContenido"><div class=" card horizontal"><div class="card-image"><img src="img/home.jpg"></div><div class="card-stacked"><div class="card-content"><p><b>Dirección:</b> '+item.Direccion+'<br><b>Ciudad: </b>'+item.Ciudad+'<br><b>Teléfono: </b>'+item.Telefono+'<br><b>Código Postal:</b> '+item.Codigo_Postal+'<br><b>Tipo:</b> '+item.Tipo+'<br><b>Precio:</b> <div class="precioTexto" style="margin-left:50px; margin-top:-27px;">'+item.Precio+'</div></p></div><div class="card-action"><a style="color:black" href="#"><b>VER MÁS</b></a></div></div></div></div>';
+
 				}
-
 				
-
+				
 			}
-
+			
+			
 		}
-
 	}
 
 
+	
+	
+      
 
 })
