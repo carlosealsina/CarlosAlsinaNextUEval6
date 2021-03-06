@@ -63,6 +63,11 @@ if(isset($_GET['opcion'])){
 				$res_rang[]=array("Id"=>$int['Id'],"Direccion"=>$int['Direccion'],"Ciudad"=>$int['Ciudad'],"Telefono"=>$int['Telefono'],"Codigo_Postal"=>$int['Codigo_Postal'],"Tipo"=>$int['Tipo'],"Precio"=>$int['Precio']);
 
 			}
+			if($precio>$minimo && $precio<$maximo && $ciudadf=='' && $tipof==''){
+				
+				$res_rang[]=array("Id"=>$int['Id'],"Direccion"=>$int['Direccion'],"Ciudad"=>$int['Ciudad'],"Telefono"=>$int['Telefono'],"Codigo_Postal"=>$int['Codigo_Postal'],"Tipo"=>$int['Tipo'],"Precio"=>$int['Precio']);
+
+			}
 
 
 		}
