@@ -32,7 +32,7 @@ $(document).ready(function(){
       for (var i=0; i<=100; i++) {
         if(datos[i]!=undefined){
           //console.log(datos[i]);
-          $("#selectCiudad").append("<option value="+datos[i]+">" + datos[i] + "</option>");
+          $("#selectCiudad").append('<option value="'+datos[i]+'">' + datos[i] + '</option>');
           $('select').formSelect();
         }
       }
@@ -49,7 +49,7 @@ $(document).ready(function(){
       //console.log(datos);
       for (var i=0; i<=100; i++) {
         if(datos[i]!=undefined){
-          $("#selectTipo").append('<option value=' + datos[i] + '>' + datos[i] + '</option>');
+          $("#selectTipo").append('<option value="' + datos[i] + '">' + datos[i] + '</option>');
           $('select').formSelect();
         }
       }
@@ -58,6 +58,10 @@ $(document).ready(function(){
 
   $("#formulario").on('click', function(e){
     e.preventDefault();
+
+    var ciudad = $('select[name=ciudad]').find('option:selected').val();
+    var tipo = $('select[name=tipo]').find('option:selected').val();
+    //console.log(ciudad);
     var precio = $("#rangoPrecio").data("ionRangeSlider");
     var minimo = precio.result.from;
     var maximo = precio.result.to;
@@ -65,9 +69,17 @@ $(document).ready(function(){
     $.ajax({
       url:'./buscador.php?opcion=4',
       type:'GET',
-      data:{minimo:minimo, maximo:maximo},
+      data:{minimo:minimo, maximo:maximo, ciudad:ciudad, tipo:tipo},
       success:function(res){
-        console.log(res);
+        //console.log(res);
+        var datos = JSON.parse(res);
+        //console.log(datos);
+        let respuesta = document.querySelector('#respuesta');
+          respuesta.innerHTML = '';
+          for(let item of datos){
+            respuesta.innerHTML += '<div class="tituloContenido"><div class=" card horizontal"><div class="card-image"><img src="img/home.jpg"></div><div class="card-stacked"><div class="card-content"><p><b>Dirección:</b> '+item.Direccion+'<br><b>Ciudad: </b>'+item.Ciudad+'<br><b>Teléfono: </b>'+item.Telefono+'<br><b>Código Postal:</b> '+item.Codigo_Postal+'<br><b>Tipo:</b> '+item.Tipo+'<br><b>Precio:</b> <div class="precioTexto" style="margin-left:50px; margin-top:-27px;">'+item.Precio+'</div></p></div><div class="card-action"><a style="color:black" href="#"><b>VER MÁS</b></a></div></div></div></div>';
+          }
+          
       }
     })
 
