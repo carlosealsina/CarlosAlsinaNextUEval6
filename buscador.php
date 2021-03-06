@@ -33,21 +33,40 @@ if(isset($_GET['opcion'])){
 	}
 
 	if($opcion==4){
+		$res_rang=array();
 		$precio=array();
 		$minimo=$_GET['minimo'];
-		$minimo=$minimo/1000;
 		$maximo=$_GET['maximo'];
+		$ciudadf=$_GET['ciudad'];
+		$tipof=$_GET['tipo'];
 
 		$array_mostrar_todos=json_decode($mostrar_todos, true);
 		foreach ($array_mostrar_todos as $int) {
 			$precio=$int['Precio'];
-			echo $precio;
-			//echo $minimo;
-			/*if($precio>$minimo){
-				echo $precio;
-			}*/
+			$precio=substr($precio, 1);
+			$precio=str_replace(',', '', $precio);
+			$Ciudad=$int['Ciudad'];
+
+			$Tipo=$int['Tipo'];
+			if($precio>$minimo && $precio<$maximo && $ciudadf==$Ciudad && $tipof==$Tipo){
+				
+				$res_rang[]=array("Id"=>$int['Id'],"Direccion"=>$int['Direccion'],"Ciudad"=>$int['Ciudad'],"Telefono"=>$int['Telefono'],"Codigo_Postal"=>$int['Codigo_Postal'],"Tipo"=>$int['Tipo'],"Precio"=>$int['Precio']);
+
+			}
+			if($precio>$minimo && $precio<$maximo && $ciudadf==$Ciudad && $tipof==''){
+				
+				$res_rang[]=array("Id"=>$int['Id'],"Direccion"=>$int['Direccion'],"Ciudad"=>$int['Ciudad'],"Telefono"=>$int['Telefono'],"Codigo_Postal"=>$int['Codigo_Postal'],"Tipo"=>$int['Tipo'],"Precio"=>$int['Precio']);
+
+			}
+			if($precio>$minimo && $precio<$maximo && $ciudadf=='' && $tipof==$Tipo){
+				
+				$res_rang[]=array("Id"=>$int['Id'],"Direccion"=>$int['Direccion'],"Ciudad"=>$int['Ciudad'],"Telefono"=>$int['Telefono'],"Codigo_Postal"=>$int['Codigo_Postal'],"Tipo"=>$int['Tipo'],"Precio"=>$int['Precio']);
+
+			}
+
+
 		}
-		//echo (json_encode($ciudad));
+		echo (json_encode($res_rang));
 	}
 
 
